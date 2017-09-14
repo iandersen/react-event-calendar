@@ -1,5 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
+import TextTruncate from 'react-text-truncate';
+import moment from 'moment';
 
 
 class CalendarEvent extends React.Component {
@@ -24,7 +26,7 @@ class CalendarEvent extends React.Component {
     render() {
         // Return a placeholder element if there is no event data 
         if(!this.props.eventData) {
-            return <div className="event-slot"></div>;
+            return <div className="event-slot"/>;
         }
 
         const showLabel = this.props.eventData.isFirstDay || (this.props.day.weekDay === 0 && this.props.wrapTitle);
@@ -37,6 +39,9 @@ class CalendarEvent extends React.Component {
             'event-last-day': this.props.eventData.isLastDay,
             'event-has-label': showLabel,
         }, this.props.eventData.eventClasses);
+        const todayMoment = moment([this.props.day.year, this.props.day.month, this.props.day.day]);
+        const endMoment = moment(this.props.eventData.end);
+        const eventWidth = Math.min(endMoment.diff(todayMoment, 'days') + 1, 7 - this.props.day.weekDay);
 
 
         return (
@@ -45,8 +50,8 @@ class CalendarEvent extends React.Component {
                 onMouseOut={this.props.onMouseOut.bind(...this.sharedArguments)}
                 onMouseOver={this.props.onMouseOver.bind(...this.sharedArguments)}
             >
-                <div className="event-title">
-                    {title}    
+                <div className="event-title" style={{width: eventWidth + '00%'}}>
+                    <TextTruncate line={1} truncateText={'...'} text={title} textTruncateChild={null}/>
                 </div>
             </div>
         );
