@@ -51,7 +51,7 @@ class CalendarEvent extends React.Component {
                 onMouseOver={this.props.onMouseOver.bind(...this.sharedArguments)}
             >
                 <div className="event-title" style={{width: eventWidth + '00%'}}>
-                    <TextTruncate line={1} truncateText={'...'} text={title} textTruncateChild={null}/>
+                    <TextTruncate line={1} truncateText={'-'} text={title} textTruncateChild={null}/>
                 </div>
             </div>
         );
