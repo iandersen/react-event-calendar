@@ -31,6 +31,7 @@ class CalendarEvent extends React.Component {
 
         const showLabel = this.props.eventData.isFirstDay || (this.props.day.weekDay === 0 && this.props.wrapTitle);
         const title = showLabel ? this.props.eventData.title : '';
+        const color = this.props.eventData.color || '';
 
         const eventClasses = classnames({
             'event-slot': true,
@@ -50,7 +51,7 @@ class CalendarEvent extends React.Component {
                 onMouseOut={this.props.onMouseOut.bind(...this.sharedArguments)}
                 onMouseOver={this.props.onMouseOver.bind(...this.sharedArguments)}
             >
-                <div className="event-title" style={{width: eventWidth + '00%'}}>
+                <div className="event-title" style={{width: eventWidth + '00%', backgroundColor: color}}>
                     <TextTruncate line={1} truncateText={'-'} text={title} textTruncateChild={null}/>
                 </div>
             </div>
